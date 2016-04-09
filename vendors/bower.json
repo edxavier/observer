@@ -1,0 +1,24 @@
+{
+  "name": "vendors",
+  "version": "0.0.0",
+  "authors": [
+    "Eder Xavier Rojas <edxavier05@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.5.9",
+    "roboto-fontface": "~0.4.5",
+    "mdi": "~1.4.57",
+    "angular": "angularjs#^1.5.0",
+    "snackbarjs": "^1.1.0",
+    "highcharts": "^4.2.3",
+    "moment": "momentjs#^2.12.0"
+  }
+}

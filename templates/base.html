@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="observer">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>Monitorizacion de red</title>
+    {% load staticfiles %}
+
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="{% static "bower_components/roboto-fontface/css/roboto-fontface.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/mdi/css/materialdesignicons.min.css" %}">
+
+     <!-- Bootstrap material Design -->
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}">
+
+    <!--
+    <link rel="stylesheet" href="{% static "bower_components/daemonite-material/css/base.min.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/daemonite-material/css/project.min.css" %}">
+-->
+     <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap-material-design/dist/css/ripples.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "bower_components/semantic-ui-icon/icon.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "bower_components/snackbarjs/dist/snackbar.min.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/snackbarjs/themes-css/material.css" %}">
+
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script type="text/javascript" src="http://192.168.137.22:8810/socket.io/socket.io.js"></script>
+  <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+      .table td{
+           text-align: center;
+        }
+      .table th{
+           text-align: center;
+        }
+
+
+      .critical{
+          font-style: italic;
+          font-weight: 600;
+          color: red;
+      }
+
+      .medium{
+          font-style: italic;
+          font-weight: 600;
+          color: orange;
+      }
+
+      .normal{
+          font-style: italic;
+          font-weight: 500;
+          color: blue;
+      }
+
+    .cool{
+          font-style: italic;
+          font-weight: 400;
+          color: green;
+      }
+
+      a:hover {
+            color: #0fb2fc;
+            text-decoration: none;
+      }
+      a:focus{
+            text-decoration: none;
+      }
+
+  </style>
+
+</head>
+<body>
+
+<div class="contain-to-grid sticky">
+    {% include "navbar.html" %}
+</div>
+<div class="container-fluid">
+{% block content %}
+{% endblock content %}
+</div>
+
+<script src="{% static "bower_components/angular/angular.min.js" %}"></script>
+<script src="{% static "bower_components/snackbarjs/dist/snackbar.min.js" %}"></script>
+
+<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+
+<!--
+<script src="{% static "bower_components/daemonite-material/js/base.min.js" %}"></script>
+<script src="{% static "bower_components/daemonite-material/js/project.min.js" %}"></script>
+-->
+<script src="{% static "bower_components/bootstrap-material-design/dist/js/ripples.min.js" %}"></script>
+<script src="{% static "bower_components/bootstrap-material-design/dist/js/material.min.js" %}"></script>
+<script src="{% static "bower_components/moment/min/moment.min.js" %}"></script>
+
+
+<script  type="text/javascript" charset="utf-8" async defer>
+     $(function() {
+         $.material.init();
+     });
+</script>
+<script src="{% static "app.js" %}"></script>
+<script src="{% static "nodeCtrl.js" %}"></script>
+
+{% block js %}
+
+{% endblock js %}
+
+</body>
+</html>

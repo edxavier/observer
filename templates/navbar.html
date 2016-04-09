@@ -1,0 +1,53 @@
+<div class="navbar shadow-z-1 navbar-fixed-top ui top attached" >
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <i class="mdi-navigation-more-vert"></i>
+        </button>
+
+        <a class="navbar-brand" href="/"><i class="icon ion-ios-people"></i>NMS</a>
+    </div>
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav">
+                <li><a href="javascript:void(0)">Hosts </a></li>
+                <li><a href="javascript:void(0)"><i class="mdi mdi-bell"></i> <span class="badge">42</span></a></li>
+                <!--
+                <li class="dropdown" >
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Network &nbsp;<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Dispositivos</a></li>
+                        <li><a href="">Servicios</a></li>
+                    </ul>
+                </li>
+                -->
+            </ul>
+            {% endif %}
+
+            <ul class="nav navbar-nav navbar-right">
+                <!--
+                <li class="hidden-sm hidden-xs">
+                  <img class="ui top aligned avatar image" style="margin-top:15px" src="{{MEDIA_URL}}{{user.imagen}}">
+                </li>
+                -->
+                {% if user.is_authenticated %}
+                <li class="dropdown" style="margin-right:20px">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                         <i class="mdi mdi-account"></i> {{user}} <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        {% if user.is_staff %}
+                            <li><a href="/admin">Administracion</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'logout' %}">Salir</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+</div>
+Status
