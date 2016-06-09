@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="utf-8">
+    <title>Reporte</title>
+<style>
+
+    table , td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+td, th{
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-bottom: 0px;
+}
+
+td{text-align: center}
+
+.table_heading{
+padding: 3px;
+}
+
+.teal{
+	background-color: #009688;
+	color: white;
+}
+
+
+/* Normal */
+ @page {
+        size: letter landscape ;
+        /*top right buttom left*/
+        margin: 2.3cm 1.5cm 2cm 1.5cm ;
+         @frame header_frame{           /* Static Frame */
+            -pdf-frame-content: header_content;
+            top: 30px;
+            left: 20pt; right: 20px;
+
+        }
+
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 390pt; width: 500pt; top: 572pt; height: 20pt;
+        }
+
+     @frame content_frame {          /* Content Frame */
+            left: 20pt; top: 95pt; width: 1010px;
+        }
+
+ }
+
+</style>
+</head>
+<body>
+
+        <table id="header_content" >
+            <tr>
+            <th rowspan="4" style="font-size:35px; font-weight: bold; padding-top: 15px">EAAI</th>
+           </tr>
+          <tr>
+            <th colspan="2">Estacion Radar Managua</th>
+            <th rowspan="2">AIRCON 2100</th>
+            <th rowspan="3">MENSUAL</td>
+            <th style="text-align: left">Formato:#</th>
+          </tr>
+          <tr>
+            <th>Tecnico:</th>
+            <th></th>
+            <th>Fecha finalizado</th>
+          </tr>
+           <tr>
+            <th>Mes del Mantto.</th>
+            <th></th>
+            <th>OPERACIONAL</th>
+            <th> {% now  "j F  Y " %}</th>
+          </tr>
+        </table>
+
+
+{% block contenido %}
+
+{% endblock contenido %}
+
+ <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - pagina <pdf:pagenumber>
+        de <pdf:pagecount>
+    </div>
+</body>
+</html>

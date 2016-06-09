@@ -1,0 +1,94 @@
+{% extends "base2.html" %}
+{% load staticfiles %}
+{% block content %}
+<nav>
+  <ul class="pager">
+      {% if notifications.has_previous %}
+          <li class="previous"><a href="?page={{ notifications.previous_page_number }}"><i class="ion-arrow-left-b"></i> Anterior</a></li>
+      {% else %}
+          <li class="previous disabled"><a href=""><i class="ion-arrow-left-b"></i> Anterior</a></li>
+      {% endif %}
+
+        <li class="previous"><a href="?page=1"> <i class="ion-ios-skipbackward"></i> Primero </a></li>
+
+      {% if notifications.has_next %}
+          <li class="next"><a href="?page={{ notifications.next_page_number }}">Siguiente <i class="ion-arrow-right-b"></i></a></li>
+      {% else %}
+          <li class="next disabled"><a href="">Siguiente <i class="ion-arrow-right-b"></i></a></li>
+      {% endif %}
+
+      <li class="next"><a href="?page={{ paginator.num_pages }}">Ultimo <i class="ion-ios-skipforward"></i></a></li>
+  </ul>
+</nav>
+
+    <ul class="timeline">
+
+    {% for notification in notifications %}
+        <!-- timeline time label -->
+        <li class="time-label">
+        {% if notification.viewed %}
+            <span class="bg-aqua">
+                {{ notification.created }}
+            </span>
+        {% else %}
+            <span class="bg-red">
+                {{ notification.created }}
+            </span>
+        {% endif %}
+
+        </li>
+        <!-- /.timeline-label -->
+
+        <!-- timeline item -->
+        <li>
+            <!-- timeline icon -->
+
+            {% if notification.viewed %}
+                <i class="fa ion-android-notifications bg-green"></i>
+            {% else %}
+                <i class="fa ion-android-notifications bg-orange"></i>
+            {% endif %}
+            <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> {{ notification.created | timesince }}</span>
+
+                <h3 class="timeline-header"><a href="#">{{ notification.node.hostname }}</a> ( {{ notification.node }} - {{ notification.node.pos }} ) </h3>
+
+                <div class="timeline-body">
+                    {{ notification.description }}
+                </div>
+                {% if not notification.viewed %}
+                    <div class="timeline-footer">
+                        <a class="btn btn-primary btn-xs">Marca como visto</a>
+                    </div>
+                {% endif %}
+            </div>
+        </li>
+        <!-- END timeline item -->
+    {% endfor %}
+
+
+
+
+</ul>
+
+<nav>
+  <ul class="pager">
+      {% if notifications.has_previous %}
+          <li class="previous"><a href="?page={{ notifications.previous_page_number }}"><i class="ion-arrow-left-b"></i> Anterior</a></li>
+      {% else %}
+          <li class="previous disabled"><a href=""><i class="ion-arrow-left-b"></i> Anterior</a></li>
+      {% endif %}
+
+        <li class="previous"><a href="?page=1"> <i class="ion-ios-skipbackward"></i> Primero </a></li>
+
+      {% if notifications.has_next %}
+          <li class="next"><a href="?page={{ notifications.next_page_number }}">Siguiente <i class="ion-arrow-right-b"></i></a></li>
+      {% else %}
+          <li class="next disabled"><a href="">Siguiente <i class="ion-arrow-right-b"></i></a></li>
+      {% endif %}
+
+      <li class="next"><a href="?page={{ paginator.num_pages }}">Ultimo <i class="ion-ios-skipforward"></i></a></li>
+  </ul>
+</nav>
+
+{% endblock content %}

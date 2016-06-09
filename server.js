@@ -23,6 +23,19 @@ Object.defineProperty(Object.prototype, "associativeIndexOf", {
 function callback(error, response, body) {
     //console.log(body)
 }
+function callback2(error, response, body) {
+    //console.log(body)
+    nodes = JSON.parse(body);
+    for(var index in nodes){
+        if(nodes[index].connected)
+            hosts[nodes[index].ip] ={'time': moment(), 'id':nodes[index].id}
+    }
+}
+
+djserver = "127.0.0.1:80";
+//precargar los registros de nodos en la BD
+url = 'http://'+ djserver +'/api/network/nodes/'
+request({ url: url, method: 'GET'}, callback2)
 
 
 setInterval(function(){
@@ -34,7 +47,7 @@ setInterval(function(){
         if (seg > 6 ) {
             server.io.broadcast("on_ausence", {ip:key, id:hosts[key].id})
             console.log("Conexion perdida con " +  hosts[key].id)
-            url = 'http://127.0.0.1:8000/api/network/nodes/' +hosts[key].id+ '/'
+            url = 'http://'+ djserver +'/api/network/nodes/' +hosts[key].id+ '/'
             request({ url: url, method: 'PUT', json: {connected: false, ip: key }}, callback)
             delete hosts[key]
             //publicar evento
@@ -65,8 +78,8 @@ server.post('/presence', function (req, res) {
     var index = hosts.associativeIndexOf(req.body.ip);
     //Si se recive -1 notificar nueva conexion
     if(index < 0) {
-        console.log("Nuevo Conectado:" + req.body.ip)
-        url = 'http://127.0.0.1:8000/api/network/nodes/' + req.body.id + '/'
+        console.log("Nuevo Conectado:" + req.body)
+        url = 'http://'+ djserver +'/api/network/nodes/' + req.body.id + '/'
         request({ url: url, method: 'PUT', json: {connected: true, ip: req.body.ip }}, callback)
         server.io.broadcast("on_presence", req.body)
     }
@@ -76,6 +89,7 @@ server.post('/presence', function (req, res) {
 
 server.post('/file_change', function (req, res) {
     console.log(req.body)
+    server.io.broadcast("on_file_change", req.body)
     res.send("FILE_CHANGE_ACK");
 });
 
@@ -88,24 +102,25 @@ server.post('/', function (req, res) {
 
 server.post('/shutdown', function (req, res) {
     console.info('shutdown')
-    console.info(req.body)
+    server.io.broadcast("on_shutdown", req.body)
     res.send("SHUTDOWN_ACK");
 });
 
 server.post('/startup', function (req, res) {
     console.info('start')
-    console.info(req.body)
+   // console.info(req.body)
+    server.io.broadcast("on_startup", req.body)
     res.send("STARTUP_ACK");
 });
 
 
 server.post('/linkup', function (req, res) {
-    console.info(req.body)
+    //console.info(req.body)
     res.send("INTERFACE_UP_ACK");
 });
 
 server.post('/linkdown', function (req, res) {
-    console.info(req.body)
+    //console.info(req.body)
     res.send("INTERFACE_DOWN_ACK");
 });
 

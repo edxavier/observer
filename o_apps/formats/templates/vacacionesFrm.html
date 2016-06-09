@@ -1,0 +1,120 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<div class="row" >
+    <div class="col-md-10 col-md-offset-1">
+
+       <div class="box box-primary">
+          <div class="box-body">
+
+
+              <form role="form" method='post' action="">
+                  {% csrf_token %}
+                  <div class="box-body">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                              <label for="exampleInputEmail1">Nombres y Apellidos</label>
+                              <input type="text" class="form-control" name="nombres" placeholder="Ingrese sus nombres y apellidos">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Cargo</label>
+                                  <input type="text" class="form-control" name="cargo" placeholder="Cargo">
+                                </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                              <label for="exampleInputEmail1">Codigo Empleado</label>
+                              <input type="text" class="form-control" name="codigo" placeholder="Exigido" required="">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Ubicacion</label>
+                                  <input type="text" class="form-control" name="ubicacion" placeholder="Ubicacion">
+                                </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label for="exampleInputEmail1">¿Cuantos dias devacaciones?</label>
+                              <input type="number" class="form-control"  name="dias" placeholder="Dias de vacaciones" required="">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">A partir de:</label>
+                                  <input type="text" class="form-control" name="desde_dia"  placeholder="Dia">
+                                  <input type="text" class="form-control" name="desde_mes" placeholder="Mes">
+                                  <input type="text" class="form-control"  name="desde_anio" placeholder="Año">
+                                </div>
+                          </div>
+                          <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Hasta el:</label>
+                                  <input type="text" class="form-control"  name="hasta_dia" placeholder="Dia">
+                                  <input type="text" class="form-control"  name="hasta_mes" placeholder="Mes">
+                                  <input type="text" class="form-control"  name="hasta_anio" placeholder="Año">
+                                </div>
+                          </div>
+                          <div class="col-md-3">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Presentandose el:</label>
+                                  <input type="text" class="form-control" name="presentarse_dia" placeholder="Dia">
+                                  <input type="text" class="form-control" name="presentarse_mes" placeholder="Mes">
+                                  <input type="text" class="form-control"  name="presentarse_anio" placeholder="Año">
+                                </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                      <div class="col-md-4">
+                          <div class="form-group">
+                              <label for="exampleInputEmail1">Perido compremdido:</label>
+                              <input type="text" class="form-control" name="periodo_mes_inicio" placeholder="De (Mes)">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">A:</label>
+                                  <input type="text" class="form-control" name="periodo_mes_fin" placeholder="A (mes)">
+                                </div>
+                          </div>
+                        <div class="col-md-4">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">del:</label>
+                                  <input type="text" class="form-control" placeholder="Año" name="periodo_anio">
+                                </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="form-group">
+                              <label for="exampleInputEmail1">Observacion adicional</label>
+                              <input type="text" class="form-control" name="observacion" placeholder="Observacion en caso de dias feriados con gose de salario">
+                            </div>
+                          </div>
+                      </div>
+
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Generar PDF</button>
+                  </div>
+                </form>
+
+
+          </div>
+       </div>
+    </div>
+</div>
+
+{% endblock content %}
+

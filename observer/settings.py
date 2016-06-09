@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'igz)e^wf@$e&@(ks$gg07vydg^ia557as*n&@ehozj&1q69t$$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     'o_apps.accounts',
     'o_apps.network',
+    'o_apps.horario',
+    'o_apps.formats',
 
 ]
 
@@ -80,13 +82,25 @@ WSGI_APPLICATION = 'observer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'sgimdb',
+            'USER': 'sgimuser',
+            'PASSWORD': 'stecnica',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+
 
 
 # Password validation
@@ -141,4 +155,5 @@ LOGIN_REDIRECT_URL = "/"
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+
 }

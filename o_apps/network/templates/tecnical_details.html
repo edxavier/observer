@@ -1,0 +1,173 @@
+{% extends "report_base.html" %}
+
+{% block contenido %}
+<style>
+	.titulo_inc{
+		background-color:#009688;
+		border: none;
+		color: white
+	}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}
+	
+	.sub_titulo_inc{
+		background-color:#26A69A;
+		border: none;
+		color: white
+	}
+	.sub_titulo_inc2{
+		background-color:#FFF9C4;
+		border: none;
+	}
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+
+
+<table style="border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:12px'>
+		<th style="width:65% ; text-align:left">
+			<h1>{{host}}-{{host.hostname}} </h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1> {% now "j F  Y " %}</h1>
+		</th>
+	</tr>
+</table>
+
+    <h5>Datos correspondientes a : {{host.updated}}</h5>
+
+    <table style="width:100%;">
+
+			<tr>
+			    <th class="sub_titulo_inc">RAM</th>
+			    <th class="sub_titulo_inc">Procesos</th>
+			    <th class="sub_titulo_inc">CPUs</th>
+			    <th class="sub_titulo_inc">Uptime</th>
+			    <th class="sub_titulo_inc">Modelo CPU</th>
+			</tr>
+			<tr>
+			    <td style='background-color:#F5F5F5'>  {{host.ram}} MB </td>
+			    <td style='background-color:#F5F5F5'>{{host.procs}}</td>
+			    <td style='background-color:#F5F5F5'>{{host.cores}}</td>
+			    <td style='background-color:#F5F5F5'>{{host.uptime_str}}</td>
+			    <td style='background-color:#F5F5F5'>{{host.cpu_model}}</td>
+			</tr>
+
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="5"></td>
+			</tr>	
+		</table>
+        <table style="width:100%;">
+
+			<tr>
+                <th class="sub_titulo_inc">Pos.</th>
+			    <th class="sub_titulo_inc">Uso de CPU</th>
+			    <th class="sub_titulo_inc">Uso de RAM</th>
+			    <th class="sub_titulo_inc">Uso de part. {{ host.partition }}</th>
+			    <th class="sub_titulo_inc">Load avg. 5 min </th>
+			    <th class="sub_titulo_inc">Load avg. 15 min</th>
+			</tr>
+			<tr>
+                <td style='background-color:#F5F5F5'> {{host.pos}}</td>
+			    <td style='background-color:#F5F5F5'> {{host.cpu_pcpu|floatformat}} % </td>
+			    <td style='background-color:#F5F5F5'>{{host.ram_prc|floatformat}} %</td>
+			    <td style='background-color:#F5F5F5'>{{host.part_usage |floatformat}} %</td>
+			    <td style='background-color:#F5F5F5'>{{ host.load5 }}</td>
+			    <td style='background-color:#F5F5F5'>{{host.load15}}</td>
+			</tr>
+
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="4"></td>
+			</tr>
+		</table>
+
+{% autoescape off %}
+
+
+		<table style="width:100%;">
+			<tr>
+			    <th class="sub_titulo_inc" colspan="3" style="text-align:left; padding-left:10px" >
+			    	SERVER DESCRIPTION
+			    </th>
+                <th class="sub_titulo_inc" colspan="3" style="text-align:left; padding-left:10px">
+			    	DIMMS
+			    </th>
+			</tr>
+	    	<tr>
+			    <td   style="text-align:left" colspan="3" valign="top">
+			    	 {{host.server_desc}}
+			    </td>
+                <td  colspan="3"  style="text-align:left" valign="top">
+			    	 {{host.dimms}}
+			    </td>
+			</tr>
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="3"></td>
+			</tr>
+		</table>
+
+
+    <table style="width:100%;-pdf-keep-with-next: true; ">
+			<tr>
+			    <th class="sub_titulo_inc" colspan="2" style="text-align:left; padding-left:10px">
+			    	POWERSUPPLY
+			    </th>
+                <th class="sub_titulo_inc" colspan="3" style="text-align:left; padding-left:10px">
+			    	FANS
+			    </th>
+			</tr>
+	    	<tr>
+			    <td   style="text-align:left" colspan="2" valign="top">
+			    	 {{host.power_suply}}
+			    </td>
+                <td  colspan="3"  style="text-align:left" valign="top">
+			    	 {{host.fans}}
+			    </td>
+			</tr>
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="3"></td>
+			</tr>
+		</table>
+
+      <table style="width:100%;">
+			<tr>
+                <th class="sub_titulo_inc" style="text-align:left; padding-left:10px">
+			    	TEMPERATURE
+			    </th>
+			</tr>
+		</table>
+			    	 {{host.temperature}}
+
+     <table style="width:100%;">
+			<tr>
+			    <th class="sub_titulo_inc"  style="text-align:left; padding-left:10px">
+			    	RAID CONTROLLER
+			    </th>
+			</tr>
+    </table>
+
+    {{host.raid}}
+         <table style="width:100%;">
+			<tr>
+			    <th class="sub_titulo_inc"  style="text-align:left; padding-left:10px">
+			    	NVIDIA STATUS
+			    </th>
+			</tr>
+    </table>
+    <br>
+    {{host.screen}}
+{% endautoescape %}
+
+{% endblock contenido %}

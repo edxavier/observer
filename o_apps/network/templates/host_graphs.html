@@ -1,0 +1,114 @@
+{% extends "base2.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="row" >
+    <div class="col-md-10 col-md-offset-1">
+
+        <h3>{{ host.hostname }} / {{ host.pos }}</h3>
+        <div class="box box-info">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="container-ram" style="width: 300px; height: 200px;">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div id="container-load" style="width: 300x; height: 200px;"></div>
+                </div>
+                <div class="col-md-4">
+                    <div id="container-cpu" style="width: 300px; height: 200px;"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box box-info ">
+               <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     <div id="line-load" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-danger ">
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     <div id="container" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-warning ">
+               <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     <div id="line-cpu" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info ">
+               <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     <div id="line-procs" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box box-warning ">
+               <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     <div id="line-disk" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static "bower_components/highcharts/highcharts.js" %}"></script>
+    <script src="{% static "bower_components/highcharts/highcharts-more.js" %}"></script>
+    <script src="{% static "bower_components/highcharts/modules/solid-gauge.js" %}"></script>
+    <script src="{% static "bower_components/highcharts/modules/exporting.js" %}"></script>
+    <script src="{% static "chart_options.js" %}"></script>
+    <script src="{% static "linear.js" %}"></script>
+
+<script>
+
+$(document).ready(function() {
+
+    id = "{{host.id}}";
+    load_hist(id)
+
+    $('#container-ram').highcharts(Highcharts.merge(ram_gaugeOptions, ram_copt, opt2));
+    $('#container-load').highcharts(Highcharts.merge(load_gaugeOptions, load_copt, opt2));
+    $('#container-cpu').highcharts(Highcharts.merge(cpu_gaugeOptions, cpu_copt, opt2));
+
+    io.on('on_rsrc_update', function(data){
+        var ram_series = ram_chart.series[0].data;
+        var load_series = load_chart.series[0].data;
+        var cpu_series = cpu_chart.series[0].data;
+
+        if(data.id == "{{host.id}}"){
+            //console.log(data)
+            p_ram = parseFloat(data.ram_prc).toFixed(1)
+            p_cpu = parseFloat(data.cpu_pcpu).toFixed(1)
+            p_load5 = parseFloat(data.load5 * 100 / data.cores).toFixed(1)
+
+            ram_series[0].update(parseFloat(p_ram));
+            load_series[0].update(parseFloat(p_load5));
+            cpu_series[0].update(parseFloat(p_cpu));
+
+            //series[0].update(77.8);
+        }
+    });
+
+});
+</script>
+{% endblock js %}

@@ -1,9 +1,17 @@
 from __future__ import unicode_literals
+
+import datetime
 from django.db import models
 # Create your models here.
 
 
 class Node(models.Model):
+
+    is_server = models.BooleanField(default=False, blank=True)
+    sector = models.CharField(max_length=20, default="operational", blank=True, null=True)
+    manufacturer = models.CharField(max_length=100, default="Sin datos", blank=True, null=True)
+    node_model = models.CharField(max_length=100, default="Sin datos", blank=True, null=True)
+    serial = models.CharField(max_length=100, default="Sin datos", blank=True, null=True)
 
     ip = models.GenericIPAddressField(unique=True)
     hostname = models.CharField(max_length=20, blank=True, null=True)
@@ -38,8 +46,32 @@ class Node(models.Model):
     cpu_proc_name = models.CharField(max_length=200, blank=True, null=True)
     cpu_proc_pcpu = models.FloatField(blank=True, null=True)
 
-    connected = models.BooleanField(default=True)
+    fans = models.TextField(default="No Data")
+    temperature = models.TextField(default="No Data")
+    dimms = models.TextField(default="No Data")
+    server_desc = models.TextField(default="No Data")
+    power_suply = models.TextField(default="No Data")
+    raid = models.TextField(default="No Data")
+    screen = models.TextField(default="No Data")
+    dmi = models.TextField(default="No Data")
 
+    #manufacturer = models.TextField(default="No Data")
+    #product = models.TextField(default="No Data")
+    #serial_number = models.TextField(default="No Data")
+    temp_stat = models.TextField(default="N/A")
+    fans_stat = models.TextField(default="N/A")
+    proc_stat = models.TextField(default="N/A")
+    pwr_stat = models.TextField(default="N/A")
+    dimm_stat = models.TextField(default="N/A")
+    ld_stat = models.TextField(default="N/A")
+    pd_stat = models.TextField(default="N/A")
+    video_usage = models.TextField(default="N/A")
+    gpu_temp = models.TextField(default="N/A")
+
+
+
+    connected = models.BooleanField(default=True)
+    updated = models.DateTimeField(auto_now=True)
     def __unicode__(self):
         return self.ip
 
@@ -70,6 +102,11 @@ class PerformanceHistory(models.Model):
     def __unicode__(self):
         return str(self.ram_prc)
 
+    def get_formated_date(self):
+        return self.created.strftime('%Y-%m-%d %H:%M:%S')
+        #return self.created.strftime('%Y-%m-%d %H:%M')
+    def get_cores(self):
+        return self.node.cores
 
 class NotificationType(models.Model):
     name = models.CharField(max_length=200, blank=True)
@@ -78,8 +115,9 @@ class NotificationType(models.Model):
 class NetworkNotification(models.Model):
 
     node = models.ForeignKey(Node)
-    type = models.ForeignKey(NotificationType)
+    #type = models.ForeignKey(NotificationType)
     description = models.TextField()
+    viewed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
 

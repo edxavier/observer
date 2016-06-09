@@ -19,6 +19,8 @@ from django.contrib.auth.decorators import login_required
 
 from o_apps.accounts.urls import accounts_patterns
 from o_apps.network.urls import network_patterns
+from o_apps.horario.urls import horario_patterns
+from o_apps.formats.urls import formats_patterns
 from o_apps.network import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +33,9 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^accounts/', include(accounts_patterns)),
     url(r'^network/', include(network_patterns)),
+    url(r'^horario/', include(horario_patterns)),
+
+    url(r'^formats/', include(formats_patterns)),
 ]
 
 

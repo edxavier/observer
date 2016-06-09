@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="iso-8859-1">
+    <title>Reporte</title>
+<style>
+    table , td {
+    border: 0px solid #80DEEA;
+    border-collapse: collapse;
+}
+td, th{
+    padding: 3px 3px 1px 1px ;
+    text-align: center;
+}
+
+
+.table_heading{
+padding: 3px;
+}
+
+.teal{
+	background-color: #009688;
+	color: white;
+}
+
+
+
+/* Normal */
+ @page {
+        size: letter ;
+        /*top right buttom left*/
+        margin: 2.3cm 1.5cm 2cm 1.5cm ;
+         @frame header_frame{           /* Static Frame */
+            -pdf-frame-content: header_content;
+            width: 100%; top: 30px;
+        }
+
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 270pt; width: 500pt; top: 762pt; height: 20pt;
+        }
+
+
+ }
+
+    @page land_template{
+         size:a4 landscape;
+         margin: 2.3cm 1.5cm 2cm 1.5cm ;
+    }
+
+</style>
+</head>
+<body>
+
+        <table id="header_content" >
+            <tr>
+                <td style='width:100%; padding-left:60px; vertical-align:bottom;'>
+                    <h4>EMPRESA ADMINISTRADORA DE AEROPUERTOS INTERNACIONALES</h4>
+                </td>
+                <td style='width:20%;'>
+                    <!--<img src="/static/images/eaai_logo.jpg" style='width:60px'>-->
+                </td>
+            </tr>
+
+        </table>
+
+
+{% block contenido %}
+
+{% endblock contenido %}
+
+ <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - pagina <pdf:pagenumber>
+        de <pdf:pagecount>
+    </div>
+</body>
+</html>

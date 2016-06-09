@@ -1,0 +1,6 @@
+sudo apt-get install libjpeg8-dev
+libreria requerida por pillow
+
+
+ssh-copy-id root@10.160.80.19
+rsync -azP watcher_project root@10.160.80.19:/root

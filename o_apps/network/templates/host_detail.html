@@ -1,111 +1,153 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% load staticfiles %}
 {% block content %}
 
-<div class="row" style="padding-top: 50px">
+    <br>
+    <div class="row" >
     <div class="col-md-10 col-md-offset-1">
-        <ol class="breadcrumb">
-          <li><a href="#">Network</a></li>
-          <li><a href="#">Host</a></li>
-          <li class="active">{{ host.hostname }}</li>
-        </ol>
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h2 class="panel-title"> {{ host }} - {{ host.hostname }} ( {{ host.pos }} )</h2>
-          </div>
-          <div class="panel-body">
-              <table class="table">
-                  <tbody>
-                      <tr>
-                        <td><h5><strong>CPUs:</strong> {{ host.cores }}</h5> </td>
-                        <td><h5><strong> Procesador:</strong> {{ host.processor }} </h5></td>
-                        <td><h5><strong> Modelo cpu:</strong> {{ host.cpu_model }}</h5></td>
-                        <td><h5><strong> Plataforma:</strong> {{ host.platform }}</h5></td>
-                      </tr>
-                      <tr>
-                        <td><h5><strong>S.O.:</strong> {{ host.os }}</h5> </td>
-                        <td><h5><strong> Version S.O.:</strong> {{ host.os_version }}</h5></td>
-                        <td><h5><strong> Kernel:</strong> {{ host.kernel }} </h5></td>
-                        <td><h5><strong> Version Kernel:</strong> {{ host.k_release }}</h5></td>
-                      </tr>
-                      <tr>
-                        <td><h5><strong>RAM:</strong> {{ host.ram }} MB</h5> </td>
-                        <td><h5><strong> Particion {{ host.partition }}: </strong> {{ host.part_usage }} %</h5></td>
-                        <td><h5><strong> Procesos:</strong> {{ host.procs }} </h5></td>
-                        <td><h5><strong> Uptime:</strong> {{ host.uptime_str }}</h5></td>
-                      </tr>
-                  </tbody>
-              </table>
+        <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-yellow">
+                  <h3 class="widget-user-username"> {{ host.hostname }} ( {{ host.pos }} )</h3>
+                  <h5 class="widget-user-desc">{{ host }}</h5>
 
-          </div>
-        </div>
+            </div>
 
-        <div class="well well-lg">
-            <div class="row">
-                <div class="col-md-4">
-                    <div id="container-ram" style="width: 300px; height: 200px;">
+            <div class="box-footer no-padding">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="nav nav-stacked">
+                            <li><a href="#">CPUs <span class="pull-right badge bg-green">{{ host.cores }}</span></a></li>
+                            <li><a href="#">Procesador <span class="pull-right badge bg-green"> {{ host.processor }} </span></a></li>
+                            <li><a href="#"> Modelo CPU <span class="pull-right badge bg-green">{{ host.cpu_model }}</span></a></li>
+                            <li><a href="#">Plataforma <span class="pull-right badge bg-green">{{ host.platform }}</span></a></li>
+                              <li><a href="#">Sistema Operativo <span class="pull-right badge bg-green">{{ host.os }}</span></a></li>
+                            <li><a href="#">Version Sistema Operativo  <span class="pull-right badge bg-green">{{ host.os_version }}</span></a></li>
+
+                          </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="nav nav-stacked">
+
+                            <li><a href="#">Kernel <span class="pull-right badge bg-green">{{ host.kernel }} </span></a></li>
+                            <li><a href="#">Version Kernel <span class="pull-right badge bg-green">{{ host.k_release }}</span></a></li>
+
+                              <li><a href="#">RAM <span class="pull-right badge bg-green">{{ host.ram }} MB</span></a></li>
+                              <li><a href="#">Particion {{ host.partition }} <span class="pull-right badge bg-green">{{ host.part_usage }}%</span></a></li>
+                              <li><a href="#">Procesos <span class="pull-right badge bg-green">{{ host.procs }}</span></a></li>
+                              <li><a href="#">Uptime <span class="pull-right badge bg-green">{{ host.uptime_str }}</span></a></li>
+                          </ul>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="btn-group" role="group" aria-label="..." style="padding: 3%">
+                            <a class="btn btn-info btn-xs" href="/network/host/{{ host.id }}/report_detail/"><i class="icon outline file pdf"></i> Generar PDF</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div id="container-load" style="width: 300x; height: 200px;"></div>
+
                 </div>
-                <div class="col-md-4">
-                    <div id="container-cpu" style="width: 300px; height: 200px;"></div>
-                </div>
-            </div>
         </div>
 
-        <div class="well well-lg">
+        {% autoescape off %}
+
+        <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">Datos generales</h3>
+            </div><!-- /.box-header -->
             <div class="row">
                  <div class="col-md-10 col-md-offset-1">
-                     <div id="container" style="width: 100%; height: 300px;"></div>
+                     {{ host.dmi }}
+                </div>
+            </div>
+        </div>
+
+         <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">NVIDIA STATUS</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.screen }}
                 </div>
             </div>
         </div>
 
 
+
+        <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">SERVER</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.server_desc }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">DIMMS</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.dimms }}
+                </div>
+            </div>
+        </div>
+                    <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">POWERSUPLY</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.power_suply }}
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">RAID CONTROLER</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.raid }}
+                </div>
+            </div>
+        </div>
+
+            <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">FANS</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.fans }}
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-danger ">
+            <div class="box-header with-border">
+                <h3 class="box-title">TEMPERATURE</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+                 <div class="col-md-10 col-md-offset-1">
+                     {{ host.temperature }}
+                </div>
+            </div>
+        </div>
+
+        {% endautoescape %}
     </div>
 </div>
 
 {% endblock content %}
 
 {% block js %}
-    <script src="{% static "bower_components/highcharts/highcharts.js" %}"></script>
-    <script src="{% static "bower_components/highcharts/highcharts-more.js" %}"></script>
-    <script src="{% static "bower_components/highcharts/modules/solid-gauge.js" %}"></script>
-    <script src="{% static "chart_options.js" %}"></script>
-        <script src="{% static "linear.js" %}"></script>
 
-<script>
-
-$(document).ready(function() {
-
-    id = "{{host.id}}";
-    load_hist(id)
-
-    $('#container-ram').highcharts(Highcharts.merge(ram_gaugeOptions, ram_copt, opt2));
-    $('#container-load').highcharts(Highcharts.merge(load_gaugeOptions, load_copt, opt2));
-    $('#container-cpu').highcharts(Highcharts.merge(cpu_gaugeOptions, cpu_copt, opt2));
-
-    io.on('on_rsrc_update', function(data){
-        var ram_series = ram_chart.series[0].data;
-        var load_series = load_chart.series[0].data;
-        var cpu_series = cpu_chart.series[0].data;
-
-        if(data.id == "{{host.id}}"){
-            //console.log(data)
-            p_ram = parseFloat(data.ram_prc).toFixed(1)
-            p_cpu = parseFloat(data.cpu_pcpu).toFixed(1)
-            p_load5 = parseFloat(data.load5 * 100 / data.cores).toFixed(1)
-
-            ram_series[0].update(parseFloat(p_ram));
-            load_series[0].update(parseFloat(p_load5));
-            cpu_series[0].update(parseFloat(p_cpu));
-
-            //series[0].update(77.8);
-        }
-    });
-
-});
-</script>
 {% endblock js %}

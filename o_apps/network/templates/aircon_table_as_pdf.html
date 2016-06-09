@@ -1,0 +1,144 @@
+{% extends "report_land.html" %}
+
+{% block contenido %}
+
+<style>
+	.titulo_inc{
+		background-color:#009688;
+		border: none;
+		color: white
+	}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}
+
+	.sub_titulo_inc{
+		background-color:#26A69A;
+		color: white
+
+	}
+	.sub_titulo_inc2{
+		background-color:#FFF9C4;
+		border: none;
+	}
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+
+		color: #424242
+	}
+</style>
+
+  <table class="table table-striped table-hover" >
+  <thead>
+    <tr><th class="titulo_mtto" colspan="19">Mantenimeinto Mensual de Servidores y Worksation del Sistema AIRCON2100</th></tr>
+  <tr>
+      <th class="sub_titulo_mtto" width="32px"><h6> ID</h6></th>
+    <th class="sub_titulo_mtto" width="88px"><h6> Sistema</h6></th>
+    <th class="sub_titulo_mtto" width="52px"><h6>URAM</h6></th>
+    <th class="sub_titulo_mtto" width="52px"><h6>UCPU</h6></th>
+    <th class="sub_titulo_mtto" width="125px"><h6>Uptime</h6></th>
+    <th class="sub_titulo_mtto" width="52px"><h6>Procs.</h6></th>
+    <th class="sub_titulo_mtto" width="62px"><h6>Part /</h6></th>
+    <th class="sub_titulo_mtto" width="62px"><h6>NTP</h6></th>
+
+      <th class="sub_titulo_mtto" width="62px"><h6>load5</h6></th>
+      <th class="sub_titulo_mtto" width="62px"><h6>load15</h6></th>
+      <th class="sub_titulo_mtto"  width="72px"><h6>cpu_stat</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>ram_stat</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>pwr_stat</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>fans_stat</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>temps_stat</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>ld_stat</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>pd_stat</h6></th>
+
+      <th class="sub_titulo_mtto" width="72px"><h6>gpu_usage</h6></th>
+      <th class="sub_titulo_mtto" width="72px"><h6>gpu_temp</h6></th>
+  </tr>
+      <tr>
+          <td class="sub_titulo_mtto2" colspan="2">Referencia</td>
+          <td class="sub_titulo_mtto2">&lt;95%</td>
+          <td class="sub_titulo_mtto2">&lt;95%</td>
+          <td class="sub_titulo_mtto2">&lt;120d
+          <td class="sub_titulo_mtto2">N/A</td>
+          <td class="sub_titulo_mtto2">&lt;95%</td>
+          <td class="sub_titulo_mtto2">&plusmn;40s</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">OK/F</td>
+          <td class="sub_titulo_mtto2">&lt;95%</td>
+          <td class="sub_titulo_mtto2">&lt;75&deg;C</td>
+      </tr>
+
+  </thead>
+  <tbody>
+  {% for host in  hosts%}
+    <tr>
+        <td>{{ host.id }}</td>
+        <td style="font-size: 9px"> {{ host.pos }} </td>
+        <td> {{ host.ram_prc |floatformat}}% </td>
+        <td> {{ host.cpu_pcpu |floatformat }}% </td>
+        <td> {{ host.uptime_str }} </td>
+        <td> {{ host.procs }} </td>
+        <td> {{ host.part_usage }}% </td>
+        <td> {{ host.sync_dif }} </td>
+
+    <td> {{ host.load5 }} </td>
+    <td> {{ host.load15 }} </td>
+    <td> {{ host.proc_stat }} </td>
+    <td> {{ host.dimm_stat }} </td>
+    <td> {{ host.pwr_stat }} </td>
+    <td> {{ host.fans_stat }} </td>
+    <td> {{ host.temp_stat }} </td>
+    <td> {{ host.ld_stat }} </td>
+    <td> {{ host.pd_stat }} </td>
+    <td>
+        {% if host.video_usage != "N/A" %}
+            {{ host.video_usage|floatformat }}
+        {% else %}
+            {{ host.video_usage}}
+        {% endif %}
+    </td>
+    <td>
+        {% if host.gpu_temp != "N/A" %}
+            {{ host.gpu_temp }}&deg;C
+        {% else %}
+            {{ host.gpu_temp }}
+        {% endif %}
+    </td>
+    </tr>
+  {% endfor %}
+
+  <tr>
+    <td colspan="3"><h5>Verificacion de tandem:</h5></td>
+      <td colspan="2"></td>
+      <td colspan="3"><h5>Verificacion de Difusores:</h5></td>
+      <td colspan="2"></td>
+      <td colspan="3"> <h5>Limpieza de cisntas DRF:</h5></td>
+      <td colspan="2"></td>
+  </tr>
+  </tbody>
+</table>
+
+    <br>
+    <caption style="font-size: 5px">Referencia:</caption>
+
+     <blockquote style="border-left: 1px solid grey; padding-left: 5px; font-size: 7px;">
+        URAM: Uso de RAM | UCPU: Uso de cpu | Procs: Procesos | NTP: Sincronizacion con ntp -- load 5 y 15: Carga promedio de cpu
+        | cpu_stat: Estado de CPU | ram_stat: Estado de RAM | fan_stat: Estado de FANS | temp_stat: Estado de temperaturas
+     | pwr_stat: Estado de fuentes de Poder | pd_stat: Estado de discos duros fisicos | ld_stat: Estado de discos logicos (RAID)
+     | gpu_usage: Uso de memoria de video | gpu_temp: Temperatura de gpu
+     </blockquote>
+{% endblock contenido %}

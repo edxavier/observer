@@ -29,7 +29,7 @@ class PerformanceFilter(django_filters.FilterSet):
 
 class NodeViewSet(viewsets.ModelViewSet):
     serializer_class = NodeSerializer
-    queryset = Node.objects.all()
+    queryset = Node.objects.all().order_by('id')
     filter_fields = ('ip', )
     filter_class = NodesFilter
 
@@ -46,7 +46,7 @@ class NodeViewSet(viewsets.ModelViewSet):
 
 class PerformanceViewSet(viewsets.ModelViewSet):
     serializer_class = PerformanceSerializer
-    queryset = PerformanceHistory.objects.all().order_by('created')
+    queryset = PerformanceHistory.objects.all().order_by('id')
     filter_class = PerformanceFilter
 
 """
@@ -62,3 +62,17 @@ class PerformanceViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 """
+
+class NotificationViewSet(viewsets.ModelViewSet):
+    serializer_class = NotificationSerializer
+    queryset = NetworkNotification.objects.all().order_by('-id')
+    filter_fields = ('id','viewed')
+
+    def update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        serializer = NotificationSerializer(obj, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
