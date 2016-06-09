@@ -1,0 +1,76 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<div class="row" >
+    <div class="col-md-10 col-md-offset-1">
+
+       <div class="box box-primary">
+          <div class="box-body">
+
+          <div class="box-header with-border">
+                  <h3 class="box-title">Rotar Horario</h3>
+          </div>
+
+              {% if daysDiff.days <= 0 %}
+
+                  <form method='post' action="">
+                    {% csrf_token %}
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">De cuantas semanas consta el siguiente horario:</label>
+                        <input type="number"  class="form-control" name="quantity" min="4" max="5" required >
+                    </div>
+                      <button type="submit" class="btn btn-primary">Rotar</button>
+                      	<button class="button small " data-hint="Seguidos" type="submit">
+										  <i class="fi-save"></i> Guardar
+										</button>
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                  </div>
+                </form>
+
+              {% else %}
+						<div class="">
+							<div class="">
+								<h4  style='font-family: Jose'>
+								Estimado(a) {{user.first_name | default:user}}, lo sentimos, esta opcion estara disponible en: <i class='fi-clock'></i> {{fechaDisp |timeuntil}} ( {{daysDiff.days}} dias)  <br>
+								<i class='fi-calendar'></i> El {{fechaDisp | date:"d-F-Y"}}
+							</h4>
+							</div>
+							<div class="column medium-3">
+								<img src="{{STATIC_URL}}img/female.png" style='width:200px'>
+							</div>
+						</div>
+
+					{% endif %}
+
+	<br>
+
+<div class="input-group date" data-provide="datepicker" >
+    <input type="text" class="form-control" placeholder="Click para ver calendario">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>
+
+
+		</div>
+	</div>
+		</div>
+	</div>
+{% endblock content %}
+
+
+{% block statics %}
+
+	<script>
+	  $(function() {
+
+
+	  });
+	</script>
+
+
+{% endblock statics %}

@@ -1,0 +1,108 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<div class="row" >
+    <div class="col-md-10 col-md-offset-1">
+
+	<dl class="sub-nav ">
+		<dt>Opciones:</dt>
+			<dd class="sn "><a href="{% url 'ver_horarioPDF' %}">
+				<i class='fi-list-bullet'></i> Ver en PDF</a>
+			</dd>
+	</dl>
+	<blockquote style="font-size: 13px; border-left: solid 3px green">
+		El horario actual tiene una validez de <strong>{{valides.semanas}} semanas</strong>, la cual se vence el <strong> {{valides.fecha_final | date:"d \d\e F \d\e\l Y"}}</strong>.
+		Todo lo que esta despues es una estimacion segun la matriz y el orden de cada persona. <br>
+		<cite>16 semanas son generadas en total.</cite>
+	</blockquote>
+	
+	{% for semana in  semanas %}
+        <div class="box box-primary">
+          <div class="box-body">
+
+	    	<table class='table'>
+	    		{% with turno=semana.semanaH|first %}
+	    			{% with inicio=turno.horario|first final=turno.horario|last%}
+						<caption class='caption' >
+							Semana del {{inicio.fecha|date:"d \d\e F"}} al {{final.fecha|date:"d \d\e F \d\e\l Y"}} 
+						</caption>
+					{% endwith %}
+				{% endwith %}
+			   <thead>
+			  
+					<tr class='head'>		
+			      		<th style='width: 120px'>Nombres</th>
+				         	
+				         	{% with turno=semana.semanaH|first %}
+				         		{% for fechas in  turno.horario %}
+				         			<th style='width: 110px'>{{fechas.fecha|date:"D d "}} </th>	
+				         		{% endfor %}								
+							{% endwith %}
+				         
+			       </tr>
+			   </thead>
+			<tbody>
+				    {% for  item in  semana.semanaH %}								
+						<tr>
+							<td style='text-align: left'>{{item.nombre}} </td>
+							{% if forloop.counter != 2 %}
+								{% for turns in  item.horario %}
+									<td>	{{turns.turno}} </td>
+								{% endfor %}
+							{% else %}
+								<td>A</td>
+								<td>A</td>
+								<td>A</td>
+								<td>A</td>
+								<td>A</td>
+								<td>-</td>
+								<td>-</td>
+							{% endif %}	
+						<tr>
+				    {% endfor %}
+	    	</tbody>
+			</table>
+        </div>
+        </div>
+			
+	{% endfor %}
+
+{% comment %}
+
+	<table class='table'>
+		{% with fecha=fechas|first  final=fechas|last %}
+		    <caption class='caption'>Semana del {{fecha.fecha|date:"d \d\e F"}} al {{final.fecha|date:"d \d\e F \d\e\l Y"}} </caption>
+		{% endwith %}
+	   <thead>
+	      <tr class='head'>
+	      		<th style='width: 120px'>Nombres</th>
+	         	
+	         	{% for fecha in  fechas %}
+					<th style='width: 110px'>{{fecha.fecha|date:"D d b"}} </th>
+				{% endfor %}
+         
+	      </tr>
+	   </thead>
+	   <tbody>
+			{% for shedul in horarios %}
+
+				<tr>
+					<td style='text-align: left'>{{shedul.empleado.nombre}} </td> 
+					{% for rol in  shedul.empleado.horario_emp %}
+						{% if forloop.counter == 2 %}
+							<td>A</td>
+							<td>A</td><td>A</td><td>A</td><td>A</td><td>A</td>
+						{% else %}
+							<td>{{rol.turno}} {{ forloop.counter}}</td>
+						{% endif %}	
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+		
+{% endcomment %}
+    </div>
+</div>
+{% endblock content %}
