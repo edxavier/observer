@@ -8,7 +8,7 @@
 			@page {
 				 size: letter ;
                 /*top right buttom left*/
-                margin: 2.3cm 1.5cm 2cm 1.5cm ;
+                margin: 2.3cm 2cm 2cm 2cm ;
                  @frame header_frame{           /* Static Frame */
                     -pdf-frame-content: header_content;
                     width: 100%; top: 30px;
@@ -32,62 +32,69 @@
 <body>
 
 
-<div style="text-align: center">
+<div style="text-align: center; font-family: 'Times New Roman'">
         <label style="font-weight: bold; font-size: 16px">EMPRESA ADMINISTRADORA DE AEROPUERTOS INTERNACIONALES</label> <br>
-        <label style="font-weight: bold;font-size: 13px">Aeropuerto Internacional de Managua Augusto Cesar Sandino</label> <br>
-        <h1 >NOTIFICACION DE VACACIONES DESCANSADAS</h1>
-    </div>
+        <label style="font-weight: bold;font-size: 14px">Aeropuerto Internacional de Managua Augusto Cesar Sandino</label> <br>
+        <div>&nbsp;</div>
+        <label style="font-size: 17px; margin-top: 80px">NOTIFICACION DE VACACIONES DESCANSADAS</label>
+</div>
 
 <br><br>
-<h2>A &nbsp;: </h2>
 
-<table>
+
+<table style="font-family: 'Times New Roman'">
     <tr style="padding: 3px 0px 0px 0px">
-        <td width="100px" align="right" style="font-size: 12px">Sr.(a):</td>
-        <td style="border-bottom: 1px solid black; font-size: 14px" colspan="4"> &nbsp;&nbsp; {{ nombres }}</td>
-        <td width="100px"></td>
+        <td width="100px" ><h2>A :</h2></td>
+        <td width="100px" align="right" style="font-size: 16px">Sr.(a):&nbsp;</td>
+        <td style="font-size: 16px;font-weight: bold;" colspan="4"> &nbsp; <u>&nbsp; {{ nombres }} &nbsp;</u> &nbsp; </td>
     </tr>
     <tr style="padding: 8px 0px 0px 0px">
-        <td width="100px" align="right" style="font-size: 12px">Cargo:</td>
-        <td style="border-bottom: 1px solid black;font-size: 14px">&nbsp;&nbsp; {{ cargo }}</td>
-        <td width="80px" align="right">Código:</td>
-        <td style="border-bottom: 1px solid black;font-size: 14px">&nbsp;&nbsp; {{ codigo }} </td>
-        <td width="120px">Exigido </td>
+         <td width="100px" ><h2>&nbsp;&nbsp;&nbsp;&nbsp;:</h2></td>
+        <td width="100px" align="right" style="font-size: 16px">Cargo:&nbsp;</td>
+        <td style="font-size: 16px;font-weight: bold;text-decoration: underline">&nbsp; {{ cargo }} &nbsp; </td>
+        <td width="120px" align="right" style="font-size: 16px">Código:&nbsp;</td>
+        <td width="140px" style="font-size: 16px;font-weight: bold;text-decoration: underline">&nbsp; {{ codigo }} &nbsp; </td>
+        <td style="font-size: 13px" align="left" width="199px"> Exigido el código</td>
     </tr>
     <tr style="padding: 8px 0px 0px 0px">
-        <td width="100px" align="right" style="font-size: 12px">Ubicación:</td>
-        <td style="border-bottom: 1px solid black;font-size: 14px" colspan="4">&nbsp;&nbsp; {{ ubicacion }}</td>
-        <td width="100px"></td>
+        <td width="100px" ><h2> &nbsp;&nbsp;&nbsp;&nbsp;:</h2></td>
+        <td width="100px" align="right" style="font-size: 16px">Ubicación:&nbsp;</td>
+        <td style="font-size: 16px;font-weight: bold;text-decoration: underline" colspan="4">&nbsp;&nbsp; {{ ubicacion }} &nbsp;&nbsp; </td>
     </tr>
 </table>
-<br>
-<h2>DE: &nbsp;RECURSOS HUMANOS</h2>
+<br><br>
+<label style="font-size: 16px ;font-family: 'Times New Roman'">DE: &nbsp;<b> Recursos Humanos</b></label>
+<br><br>
 
-<label style="font-size: 12px">Fecha:&nbsp; {% now "j / F / Y " %}</label>
+<label style="font-size: 14px; font-family: 'Times New Roman'">Fecha:&nbsp; <b> {% now "j / F / Y " %} </b></label>
 
+<br><br>
+
+<p style="text-align: justify; line-height: 180%;font-size: 16px; font-family: 'Times New Roman'" align="justify">
+
+   Le notifico que usted gozará de: <span style="font-weight: bold"> {{ dias }} días </span>  de VACACIONES DESCANSADAS
+    <span style="font-weight: bold"> a partir del día:  {{ desde_dia }}
+    de {{ desde_mes }}
+    del {{ desde_anio }}
+    al  {{ hasta_dia }}
+    de {{ hasta_mes }}
+    del {{ hasta_anio }}</span>.
+
+    Debiendose presentar a sus labores ante su jefe inmediato el día:
+    <span style="text-decoration: none">{{ presentarse_dia }}</span>
+    de <span style="text-decoration: none">{{ presentarse_mes }}</span>
+    del <span style="text-decoration: none">{{ presentarse_anio }}.</span>
+
+     <span style="font-style: italic; font-weight: 500">{{ observacion }}{% if observacion %}.{% endif %} </span>
+
+    Damos por entendido que estas vacaciones corresponden al periodo comprendido de:&nbsp;
+    <span style="background: darkgray;padding: 5px"> <span style="">{{ periodo_mes_inicio }}</span>
+        a <span style="">{{ periodo_mes_fin }}</span>
+        del <span style=""> {{ periodo_anio }}.</span></span>
+</p>
 <br><br><br>
 
-<p style="text-align: justify; text-justify: inter-word; font-size: 14px" align="justify">
-
-    Le notifico que Usted gozará de: <span style="text-decoration: underline">____{{ dias }}_____</span> días de VACACIONES DESCANSADAS <br>
-    A partir del día: <span style="text-decoration: underline">__{{ desde_dia }}__</span>
-    de <span style="text-decoration: underline">__{{ desde_mes }}__</span>
-    del <span style="text-decoration: underline">__{{ desde_anio }}__</span>
-    al  <span style="text-decoration: underline">__{{ hasta_dia }}__</span>
-    de <span style="text-decoration: underline">_{{ hasta_mes }}_</span>
-    del <span style="text-decoration: underline">__{{ hasta_anio }}__</span>.<br>
-    Debiendose presentar a sus labores ante su jefe inmediato el día:
-    <span style="text-decoration: underline">__{{ presentarse_dia }}__</span>
-    de <span style="text-decoration: underline">__{{ presentarse_mes }}__</span>
-    del <span style="text-decoration: underline">__{{ presentarse_anio }}__</span>. <br>
-     <span style="font-style: italic;text-decoration: underline">{{ observacion }} </span>
-    Damos por entendido que estas vacaciones corresponden al periodo comprendido de: <br>
-    <span style="background: lightgrey;padding: 5px"> <span style="text-decoration: underline">__{{ periodo_mes_inicio }}__</span>
-        a <span style="text-decoration: underline">__{{ periodo_mes_fin }}__</span>
-        del <span style="text-decoration: underline">__{{ periodo_anio }}__</span>.</span>
-</p>
-<br><br><br><br>
- <table >
+ <table style="font-family: 'Times New Roman'">
 
             <tr style="padding: 3px 0px 0px 10px">
                 <td style="border-bottom: 1px solid black"></td>
@@ -95,32 +102,30 @@
                 <td style="border-bottom: 1px solid black"></td>
             </tr>
             <tr style="padding: 3px 0px 0px 10px">
-                <th style="font-size: 12px"> Interesado</th>
+                <th style="font-size: 14px"> Interesado</th>
                 <td></td>
-                <th style="font-size: 12px">Jefe Inmediato</th>
+                <th style="font-size: 14px">Jefe Inmediato</th>
             </tr>
             <tr> <td colspan="3" height="20px"></td></tr>
             <tr style="padding: 3px 0px 0px 10px">
-                <td style="font-size: 12px" align="right"> Vo. Bo.</td>
+                <td style="font-size: 14px" align="right"> Vo. Bo.</td>
                 <td style="border-bottom: 1px solid black"></td>
                 <td></td>
             </tr>
             <tr style="padding: 3px 0px 0px 10px">
                 <td></td>
-                <th style="font-size: 12px">Supervisor de Area </th>
+                <th style="font-size: 14px">Supervisor de Area </th>
                 <th></th>
             </tr>
         </table>
 
-<br>
-<br>
-<h3>Para Uso de Recursos Humano:</h3>
+<h2 style="font-family: 'Times New Roman'">Para Uso de Recursos Humano:</h2>
 
- <table >
+ <table style="font-family: 'Times New Roman'">
             <tr style="padding: 3px 0px 0px 10px;">
-                <th style="background: lightgrey;font-size: 12px"> Revisado por:</th>
-                <td style="background: lightgrey"></td>
-                <th style="background: lightgrey;font-size: 12px">Autorizado por:</th>
+                <th style="background: darkgray;font-size: 13px"> Revisado por:</th>
+                <td style="background: darkgray"></td>
+                <th style="background: darkgray;font-size: 13px">Autorizado por:</th>
             </tr>
             <tr> <td colspan="3" height="20px"></td></tr>
             <tr style="padding: 3px 0px 10px 10px">
@@ -129,14 +134,14 @@
                 <td style="border-bottom: 1px solid black"></td>
             </tr>
             <tr style="padding: 3px 0px 0px 10px">
-                <th style="font-size: 12px"> Analista Recursos Humanos</th>
-                <td></td>
-                <th style="font-size: 12px">Supervisora de Recuros Humanos</th>
+                <th style="font-size: 13px"> Analista Recursos Humanos</th>
+                <td width="250px"></td>
+                <th style="font-size: 13px">Supervisora de Recuros Humanos</th>
             </tr>
         </table>
 
 <br>
-Cc: Archivo
+<span style="font-family: 'Times New Roman'">Cc: Archivo</span>
 
 </body>
 </html>

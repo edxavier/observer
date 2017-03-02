@@ -46,7 +46,7 @@
 				    {% for  item in  semana.semanaH %}								
 						<tr>
 							<td style='text-align: left'>{{item.nombre}} </td>
-							{% if forloop.counter != 2 %}
+							{% if forloop.counter != 11 %}
 								{% for turns in  item.horario %}
 									<td>	{{turns.turno}} </td>
 								{% endfor %}

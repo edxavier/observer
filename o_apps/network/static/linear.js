@@ -1,7 +1,7 @@
 
 function load_hist(host) {
 console.log(host)
-var daysback = moment().subtract(10, 'days')
+var daysback = moment().subtract(5, 'days')
 
     $.getJSON('/api/network/performance_hist/?node='+host+'&min_date='+daysback.format("DD/MM/YYYY"), function (data) {
 
@@ -41,7 +41,7 @@ var daysback = moment().subtract(10, 'days')
                 zoomType: 'x'
             },
             title: {
-                text: 'Historial de uso de Memoria RAM en los ultimos 10 dias'
+                text: 'Historial de uso de Memoria RAM en los ultimos 5 días  '
             },
             subtitle: {
                 text: document.ontouchstart === undefined ?
@@ -120,7 +120,7 @@ var daysback = moment().subtract(10, 'days')
                 zoomType: 'x'
             },
             title: {
-                text: 'Historial de carga promedio de CPU en los ultimos 10 dias'
+                text: 'Historial de carga promedio de CPU en los ultimos 5 días  '
             },
             subtitle: {
                 text: document.ontouchstart === undefined ?
@@ -195,7 +195,7 @@ var daysback = moment().subtract(10, 'days')
                 zoomType: 'x'
             },
             title: {
-                text: 'Historial de uso de CPU en los ultimos 10 dias'
+                text: 'Historial de uso de CPU en los ultimos 5 días  '
             },
             subtitle: {
                 text: document.ontouchstart === undefined ?
@@ -272,7 +272,7 @@ var daysback = moment().subtract(10, 'days')
                 zoomType: 'x'
             },
             title: {
-                text: 'Historial de uso de pparticion '+ data[0].partition +' en los ultimos 10 dias'
+                text: 'Historial de uso de particion '+ data[0].partition +' en los ultimos 5 días  '
             },
             subtitle: {
                 text: document.ontouchstart === undefined ?
@@ -337,7 +337,7 @@ var daysback = moment().subtract(10, 'days')
                 zoomType: 'x'
             },
             title: {
-                text: 'Historial de numero de procesos en ejecucion  en los ultimos 10 dias'
+                text: 'Historial de número de procesos en ejecución  en los ultimos 5 días  '
             },
             subtitle: {
                 text: document.ontouchstart === undefined ?
